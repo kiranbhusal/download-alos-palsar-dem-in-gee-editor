@@ -1,0 +1,22 @@
+// import roi from asset 
+var roi = Table users/kiranbhusalgeo/gandakiprovince 
+
+//import alos palsar from gee dataset 
+var alos = ee.ImageCollection("JAXA/ALOS/AW3D30/V3_2")
+
+var elevation = alos.select('DSM');
+var dataa = elevation.filterBounds(roi)
+var data = dataa.mean()
+
+Map.centerObject(roi,8)
+Map.addLayer(roi)
+Map.addLayer(data, pa)
+
+Export.image.toDrive({ 
+  image: data,
+  description: 'DEM_from_alos',
+  folder : 'DTM report',
+  scale: 10, 
+  maxPixels: 1e13, 
+  region: roi 
+});
